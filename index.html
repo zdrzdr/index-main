@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="applicable-device" content="pc,mobile">
+  <meta name="keywords" content="个人导航" />
+  <meta name="description" content="个人自用windows平台下的导航" />
+  <link rel="stylesheet" href="css/ops-coffee.min.css" type="text/css" />
+  <link rel="shortcut icon" href="images/favicon.ico" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-158772988-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-158772988-1');
+  </script>
+<!-- <style>
+/* 顶栏毛玻璃效果 */
+.header {
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* 顶栏文字反色 */
+.header-menu a {
+    color: #333 !important;
+    font-weight: 500;
+}
+.header-menu li.current-menu-item a {
+    color: #2188ff !important;
+}
+
+
+
+
+
+/* 悬停效果优化 */
+.search-btn:hover {
+    background: rgba(255, 255, 255, 0.9) !important;
+    transform: scale(1.05);
+}
+</style>-->
+<style>
+  body {
+    background: url("images/beijing.png") no-repeat center fixed;
+    background-size: cover;
+    font-family: "Segoe UI", "Roboto", sans-serif;
+    color: #fff;
+    overflow-x: hidden;
+  }
+
+  .header {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  }
+
+  .header-menu a {
+    color: #333 !important;
+    font-weight: 500;
+  }
+
+  .header-menu li.current-menu-item a {
+    color: #007bff !important;
+  }
+
+
+
+
+  /* 搜索引擎下拉动画 */
+
+  .search-engine-list li {
+    padding: 6px 10px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    list-style: none;
+  }
+
+  .search-engine-list li:hover {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+  }
+
+
+
+
+
+</style>
+
+
+
+</head>
+<!--body {
+    background-size:cover;
+    text-align:center;
+    background:rgb(246,248,249);
+    background:url(../img/bg.jpg) no-repeat center fixed transparent;
+    background-attachment:fixed;
+    background-size:100% 100%;
+
+}-->
+<body style="background:url(images/beijing.png)no-repeat center fixed; background-position: center center; background-repeat: no-repeat; background-attachment: fixed; background-size:cover; text-align:center;  "  data-rsssl=1>
+  <div class="header">
+    <div class="container">
+      <nav class="header-menu">
+        <ul >
+          <li class="current-menu-item"><a href="index.html">首页</a></li>
+          <li class=""><a href="common.html">常用</a></li>
+          <li class=""><a href="develop.html">开发</a></li>
+          <li class=""><a href="tools.html">工具</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <!-- header -->
+
+  <div id="content-wrapper">
+    <div class="container">
+
+      <section class="sousuo" style="padding-bottom: 40px;">
+        <div class="search">
+          <div class="search-box">
+            <img class="search-icon" src="">
+            <input type="text" id="txt" class="search-input" placeholder="点击切换搜索引擎">
+            <button class="search-btn" id="search-btn"><img
+                src="images/sou0.png"></button>
+          </div>
+          <!-- 搜索引擎 -->
+          <div class="search-engine" style="display: none;">
+            <ul class="search-engine-list"></ul>
+          </div>
+        </div>
+      </section>
+
+      <div class="nav-cell clearfix">
+        <ul class="nav-list">
+          <li>
+            <a class="nav-item clearfix" href="https://www.bilibili.com/" target="_blank">
+              <div class="nav-img"
+                style="margin-bottom:10px;background-image: url(images/rhub.ico);">
+              </div>
+              <div class="nav-name">bilibili</div>
+            </a>
+          </li>
+
+          <li>
+            <a class="nav-item clearfix" href="https://space.bilibili.com/3186284/favlist?fid=2270761184&ftype=create/" target="_blank">
+              <div class="nav-img"
+                style="margin-bottom:10px;background-image: url(images/rhub.ico);">
+              </div>
+              <div class="nav-name">稍后再看</div>
+            </a>
+          </li>
+
+          <li>
+            <a class="nav-item clearfix" href="https://bangumi.tv/" target="_blank">
+              <div class="nav-img"
+                style="margin-bottom:10px;background-image: url(images/bang.ico);">
+              </div>
+              <div class="nav-name">Bangumi</div>
+            </a>
+          </li>
+
+          <li>
+            <a class="nav-item clearfix" href="https://www.zhihu.com/" target="_blank">
+              <div class="nav-img"
+                style="margin-bottom:10px;background-image: url(images/zhih.png);">
+              </div>
+              <div class="nav-name">知乎</div>
+            </a>
+          </li>
+
+          <li>
+            <a class="nav-item clearfix" href="https://www.weibo.com/" target="_blank">
+              <div class="nav-img"
+                style="margin-bottom:10px;background-image: url(images/weib.png);">
+              </div>
+              <div class="nav-name">微博</div>
+            </a>
+          </li>
+
+          <li>
+            <a class="nav-item clearfix" href="https://www.douban.com/" target="_blank">
+              <div class="nav-img"
+                style="margin-bottom:10px;background-image: url(images/doub.png);">
+              </div>
+              <div class="nav-name">豆瓣</div>
+            </a>
+          </li>
+
+          <li>
+            <a class="nav-item clearfix" href="https://www.taobao.com/" target="_blank">
+              <div class="nav-img"
+                style="margin-bottom:10px;background-image: url(images/tb38.png);">
+              </div>
+              <div class="nav-name">淘宝</div>
+            </a>
+          </li>
+
+          <li>
+            <a class="nav-item clearfix" href="https://www.jd.com/" target="_blank">
+              <div class="nav-img"
+                style="margin-bottom:10px;background-image: url(images/jd37.png);">
+              </div>
+              <div class="nav-name">京东</div>
+            </a>
+          </li>
+		  
+          <li>
+            <a class="nav-item clearfix" href="https://tieba.baidu.com/" target="_blank">
+              <div class="nav-img"
+                style="margin-bottom:10px;background-image: url(images/baid.png);">
+              </div>
+              <div class="nav-name">贴吧</div>
+            </a>
+          </li>
+		  
+          <li>
+            <a class="nav-item clearfix" href="https://www.ithome.com/" target="_blank">
+              <div class="nav-img"
+                style="margin-bottom:10px;background-image: url(images/itho.ico);">
+              </div>
+              <div class="nav-name">IT之家</div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="js/nav.ops-coffee.min.js"></script>
+</body>
+</html>
