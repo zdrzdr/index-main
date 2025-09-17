@@ -377,7 +377,7 @@ select:focus-visible {
 .nav-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
+  gap: 24px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -388,6 +388,7 @@ select:focus-visible {
   float: none;
   width: auto;
   padding: 0;
+  display: flex;
 }
 
 .nav-item {
@@ -396,14 +397,16 @@ select:focus-visible {
   align-items: center;
   justify-content: flex-start;
   text-align: center;
-  gap: 10px;
-  padding: 20px 18px;
+  gap: 14px;
+  padding: 24px 22px;
   border-radius: 20px;
   background: var(--card-background);
   border: 1px solid var(--card-border-color);
   box-shadow: var(--card-shadow);
   transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
   color: inherit;
+  height: 100%;
+  width: 100%;
 }
 
 .nav-item:hover {
@@ -429,12 +432,21 @@ select:focus-visible {
 .nav-img {
   width: var(--icon-wrapper-width);
   height: var(--icon-wrapper-height);
+  min-width: var(--icon-wrapper-width);
+  min-height: var(--icon-wrapper-height);
   border-radius: var(--icon-wrapper-radius);
   background-color: var(--icon-wrapper-surface);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  transition: background-color 0.25s ease, transform 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  align-self: center;
+  float: none;
+  flex-shrink: 0;
+  transition: background-color 0.25s ease, transform 0.25s ease, width 0.25s ease, height 0.25s ease;
 }
 
 .nav-item:hover .nav-img {
