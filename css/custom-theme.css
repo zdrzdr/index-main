@@ -35,6 +35,8 @@
   --search-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
   --search-engine-surface: rgba(255, 255, 255, 0.97);
   --search-engine-border: rgba(148, 163, 184, 0.24);
+  --nav-card-width: 220px;
+  --nav-card-height: 168px;
 }
 
 body.dark-mode {
@@ -43,7 +45,7 @@ body.dark-mode {
   --page-background-gradient: radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.18), transparent 55%),
     radial-gradient(circle at 85% 12%, rgba(165, 180, 252, 0.16), transparent 50%),
     linear-gradient(180deg, rgba(15, 23, 42, 1) 0%, rgba(15, 23, 42, 0.95) 100%);
-  --page-background-image: none;
+  --page-background-image: url("../images/beijing.png");
   --page-text-color: #e2e8f0;
   --page-muted-color: rgba(203, 213, 225, 0.72);
   --header-background: rgba(15, 23, 42, 0.76);
@@ -374,9 +376,10 @@ select:focus-visible {
   color: var(--nav-name-color);
 }
 
+
 .nav-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(var(--nav-card-width), 1fr));
   gap: 24px;
   margin: 0;
   padding: 0;
@@ -389,6 +392,7 @@ select:focus-visible {
   width: auto;
   padding: 0;
   display: flex;
+  justify-content: center;
 }
 
 .nav-item {
@@ -405,8 +409,9 @@ select:focus-visible {
   box-shadow: var(--card-shadow);
   transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
   color: inherit;
-  height: 100%;
-  width: 100%;
+  width: var(--nav-card-width);
+  min-width: var(--nav-card-width);
+  min-height: var(--nav-card-height);
 }
 
 .nav-item:hover {

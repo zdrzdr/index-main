@@ -75,7 +75,12 @@
   var heightOutput = document.getElementById('icon-height-value');
   var themeState = document.getElementById('theme-state');
   var themeIndicator = document.getElementById('settings-toggle-theme');
-  var navImages = Array.prototype.slice.call(document.querySelectorAll('.nav-img'));
+  var CARD_WIDTH_OFFSET = 172;
+  var CARD_HEIGHT_OFFSET = 120;
+  var MIN_CARD_WIDTH = 180;
+  var MAX_CARD_WIDTH = 320;
+  var MIN_CARD_HEIGHT = 140;
+  var MAX_CARD_HEIGHT = 260;
 
   var mediaQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
 
@@ -127,10 +132,12 @@
     var heightValue = height + 'px';
     docEl.style.setProperty('--icon-wrapper-width', widthValue);
     docEl.style.setProperty('--icon-wrapper-height', heightValue);
-    navImages.forEach(function (icon) {
-      icon.style.width = widthValue;
-      icon.style.height = heightValue;
-    });
+
+    var cardWidth = Math.round(Math.min(MAX_CARD_WIDTH, Math.max(MIN_CARD_WIDTH, width + CARD_WIDTH_OFFSET)));
+    var cardHeight = Math.round(Math.min(MAX_CARD_HEIGHT, Math.max(MIN_CARD_HEIGHT, height + CARD_HEIGHT_OFFSET)));
+
+    docEl.style.setProperty('--nav-card-width', cardWidth + 'px');
+    docEl.style.setProperty('--nav-card-height', cardHeight + 'px');
   }
 
   function syncThemeButtons() {
