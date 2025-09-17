@@ -76,10 +76,10 @@
   var themeState = document.getElementById('theme-state');
   var themeIndicator = document.getElementById('settings-toggle-theme');
   var CARD_WIDTH_OFFSET = 172;
-  var CARD_HEIGHT_OFFSET = 120;
+  var CARD_HEIGHT_OFFSET = 72;
   var MIN_CARD_WIDTH = 180;
   var MAX_CARD_WIDTH = 320;
-  var MIN_CARD_HEIGHT = 140;
+  var MIN_CARD_HEIGHT = 120;
   var MAX_CARD_HEIGHT = 260;
 
   var mediaQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
