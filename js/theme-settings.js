@@ -75,6 +75,7 @@
   var heightOutput = document.getElementById('icon-height-value');
   var themeState = document.getElementById('theme-state');
   var themeIndicator = document.getElementById('settings-toggle-theme');
+  var navImages = Array.prototype.slice.call(document.querySelectorAll('.nav-img'));
 
   var mediaQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
 
@@ -122,8 +123,14 @@
   }
 
   function applyIconDimensions(width, height) {
-    docEl.style.setProperty('--icon-wrapper-width', width + 'px');
-    docEl.style.setProperty('--icon-wrapper-height', height + 'px');
+    var widthValue = width + 'px';
+    var heightValue = height + 'px';
+    docEl.style.setProperty('--icon-wrapper-width', widthValue);
+    docEl.style.setProperty('--icon-wrapper-height', heightValue);
+    navImages.forEach(function (icon) {
+      icon.style.width = widthValue;
+      icon.style.height = heightValue;
+    });
   }
 
   function syncThemeButtons() {
