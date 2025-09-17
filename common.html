@@ -10,6 +10,7 @@
   <meta name="keywords" content="个人导航" />
   <meta name="description" content="个人自用windows平台下的导航" />
   <link rel="stylesheet" href="css/ops-coffee.min.css" type="text/css" />
+  <link rel="stylesheet" href="css/custom-theme.css" type="text/css" />
   <link rel="shortcut icon" href="images/favicon.ico" />
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -23,7 +24,56 @@
   </script>
 </head>
 
-<body style="background:url(images/beijing.png); background-position: center center; background-repeat: no-repeat; background-attachment: fixed; background-size:cover; text-align:center;  "  data-rsssl=1>
+<body data-rsssl="1">
+  <div class="settings" id="page-settings">
+    <button id="settings-toggle" class="settings-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="settings-panel">
+      <span class="settings-toggle__icon" aria-hidden="true">⚙️</span>
+      <span class="settings-toggle__text">设置</span>
+      <span class="settings-toggle__theme" id="settings-toggle-theme" aria-hidden="true">☀️</span>
+    </button>
+    <div id="settings-panel" class="settings-panel" role="dialog" aria-modal="false" aria-labelledby="settings-title" aria-hidden="true">
+      <div class="settings-panel__header">
+        <h2 id="settings-title">显示设置</h2>
+        <button type="button" id="settings-close" class="settings-close" aria-label="关闭设置">✕</button>
+      </div>
+      <div class="settings-section">
+        <div class="settings-item">
+          <div class="settings-item__label">
+            <strong>主题模式</strong>
+            <span>选择喜欢的明暗风格</span>
+          </div>
+          <div class="theme-mode-group" role="group" aria-label="主题模式">
+            <button type="button" class="theme-mode-button" data-theme-value="light" aria-pressed="false">浅色</button>
+            <button type="button" class="theme-mode-button" data-theme-value="dark" aria-pressed="false">深色</button>
+            <button type="button" class="theme-mode-button" data-theme-value="system" aria-pressed="false">跟随系统</button>
+          </div>
+        </div>
+        <span class="settings-hint" id="theme-state">当前：浅色模式</span>
+      </div>
+      <div class="settings-section">
+        <div class="settings-item">
+          <div class="settings-item__label">
+            <strong>图标包裹宽度</strong>
+            <span>自定义导航图标的宽度</span>
+          </div>
+          <div class="range-control">
+            <input type="range" id="icon-width-control" min="32" max="96" step="1" value="48" aria-describedby="icon-width-value" />
+            <output id="icon-width-value" for="icon-width-control">48 px</output>
+          </div>
+        </div>
+        <div class="settings-item">
+          <div class="settings-item__label">
+            <strong>图标包裹高度</strong>
+            <span>自定义导航图标的高度</span>
+          </div>
+          <div class="range-control">
+            <input type="range" id="icon-height-control" min="32" max="96" step="1" value="48" aria-describedby="icon-height-value" />
+            <output id="icon-height-value" for="icon-height-control">48 px</output>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="header">
     <div class="container">
       <nav class="header-menu">
@@ -325,6 +375,8 @@
   </div>
 
 
+  <script src="js/theme-settings.js" defer></script>
+  <script src="js/site.js" defer></script>
 </body>
 
 </html>

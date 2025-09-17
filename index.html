@@ -10,6 +10,7 @@
   <meta name="keywords" content="个人导航" />
   <meta name="description" content="个人自用windows平台下的导航" />
   <link rel="stylesheet" href="css/ops-coffee.min.css" type="text/css" />
+  <link rel="stylesheet" href="css/custom-theme.css" type="text/css" />
   <link rel="shortcut icon" href="images/favicon.ico" />
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -21,248 +22,62 @@
 
     gtag('config', 'UA-158772988-1');
   </script>
-<!-- <style>
-/* 顶栏毛玻璃效果 */
-.header {
-    background: rgba(255, 255, 255, 0.7) !important;
-    backdrop-filter: blur(10px) saturate(180%);
-    -webkit-backdrop-filter: blur(10px) saturate(180%);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3) !important;
-}
+<!-- 自定义样式在 css/custom-theme.css 中维护 -->
 
-/* 顶栏文字反色 */
-.header-menu a {
-    color: #333 !important;
-    font-weight: 500;
-}
-.header-menu li.current-menu-item a {
-    color: #2188ff !important;
-}
-
-
-
-
-
-/* 悬停效果优化 */
-.search-btn:hover {
-    background: rgba(255, 255, 255, 0.9) !important;
-    transform: scale(1.05);
-}
-</style>-->
-<style>
-  body {
-    background: url("images/beijing.png") no-repeat center fixed;
-    background-size: cover;
-    font-family: "Segoe UI", "Roboto", sans-serif;
-    color: #1f2933;
-    overflow-x: hidden;
-    transition: background 0.4s ease, color 0.4s ease;
-  }
-
-  .header {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-    transition: background 0.4s ease, border-color 0.4s ease;
-  }
-
-  .header-menu a {
-    color: #333 !important;
-    font-weight: 500;
-  }
-
-  .header-menu li.current-menu-item a {
-    color: #007bff !important;
-  }
-
-  .theme-toggle {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    padding: 8px 16px;
-    border-radius: 999px;
-    border: none;
-    background: rgba(255, 255, 255, 0.8);
-    color: #1f2933;
-    font-size: 14px;
-    font-weight: 600;
-    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.15);
-    cursor: pointer;
-    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    z-index: 1000;
-  }
-
-  .theme-toggle:hover {
-    transform: translateY(-1px);
-    background: rgba(255, 255, 255, 0.95);
-  }
-
-  .search-box {
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
-  }
-
-  .search-input {
-    color: #1f2933;
-  }
-
-  .search-input::placeholder {
-    color: rgba(51, 65, 85, 0.6);
-  }
-
-  .search-btn {
-    background: rgba(255, 255, 255, 0.85) !important;
-    border-radius: 12px !important;
-    transition: background 0.3s ease, transform 0.3s ease;
-  }
-
-  .search-btn:hover {
-    transform: translateY(-1px);
-  }
-
-  .nav-item {
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 16px;
-    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
-    color: inherit;
-  }
-
-  .nav-item:hover {
-    transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.18);
-  }
-
-  .nav-item .nav-name {
-    color: #1f2933;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-  }
-
-
-
-
-  /* 搜索引擎下拉动画 */
-
-  .search-engine-list li {
-    padding: 6px 10px;
-    background: rgba(255, 255, 255, 0.6);
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    list-style: none;
-  }
-
-  .search-engine-list li:hover {
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-  }
-
-
-
-
-
-  body.dark-mode {
-    background: radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.18), transparent 55%),
-      radial-gradient(circle at 80% 10%, rgba(165, 180, 252, 0.18), transparent 50%),
-      #0f172a !important;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-image: none !important;
-    color: #e2e8f0;
-  }
-
-  body.dark-mode .header {
-    background: rgba(15, 23, 42, 0.75);
-    border-bottom: 1px solid rgba(148, 163, 184, 0.25);
-  }
-
-  body.dark-mode .header-menu a {
-    color: #e2e8f0 !important;
-  }
-
-  body.dark-mode .header-menu li.current-menu-item a {
-    color: #38bdf8 !important;
-  }
-
-  body.dark-mode .theme-toggle {
-    background: rgba(15, 23, 42, 0.85);
-    color: #e2e8f0;
-    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.45);
-  }
-
-  body.dark-mode .theme-toggle:hover {
-    background: rgba(15, 23, 42, 0.95);
-  }
-
-  body.dark-mode .search-box {
-    background: rgba(15, 23, 42, 0.75);
-    border: 1px solid rgba(148, 163, 184, 0.3);
-    box-shadow: 0 12px 26px rgba(2, 6, 23, 0.45);
-  }
-
-  body.dark-mode .search-input {
-    color: #f8fafc;
-  }
-
-  body.dark-mode .search-input::placeholder {
-    color: rgba(226, 232, 240, 0.55);
-  }
-
-  body.dark-mode .search-btn {
-    background: rgba(56, 189, 248, 0.25) !important;
-  }
-
-  body.dark-mode .search-engine-list li {
-    background: rgba(15, 23, 42, 0.65);
-    color: #e2e8f0;
-  }
-
-  body.dark-mode .search-engine-list li:hover {
-    background: rgba(56, 189, 248, 0.2);
-    box-shadow: 0 0 8px rgba(56, 189, 248, 0.35);
-  }
-
-  body.dark-mode .nav-item {
-    background: rgba(15, 23, 42, 0.75);
-    box-shadow: 0 14px 28px rgba(2, 6, 23, 0.55);
-  }
-
-  body.dark-mode .nav-item:hover {
-    background: rgba(30, 41, 59, 0.9);
-    box-shadow: 0 18px 32px rgba(2, 6, 23, 0.65);
-  }
-
-  body.dark-mode .nav-item .nav-name {
-    color: #e2e8f0;
-  }
-</style>
 
 
 
 </head>
-<!--body {
-    background-size:cover;
-    text-align:center;
-    background:rgb(246,248,249);
-    background:url(../img/bg.jpg) no-repeat center fixed transparent;
-    background-attachment:fixed;
-    background-size:100% 100%;
-
-}-->
-<body style="background:url(images/beijing.png)no-repeat center fixed; background-position: center center; background-repeat: no-repeat; background-attachment: fixed; background-size:cover; text-align:center;  "  data-rsssl=1>
-  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="切换黑夜模式" aria-pressed="false">
-    🌙 夜间模式
-  </button>
+<body data-rsssl="1">
+  <div class="settings" id="page-settings">
+    <button id="settings-toggle" class="settings-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="settings-panel">
+      <span class="settings-toggle__icon" aria-hidden="true">⚙️</span>
+      <span class="settings-toggle__text">设置</span>
+      <span class="settings-toggle__theme" id="settings-toggle-theme" aria-hidden="true">☀️</span>
+    </button>
+    <div id="settings-panel" class="settings-panel" role="dialog" aria-modal="false" aria-labelledby="settings-title" aria-hidden="true">
+      <div class="settings-panel__header">
+        <h2 id="settings-title">显示设置</h2>
+        <button type="button" id="settings-close" class="settings-close" aria-label="关闭设置">✕</button>
+      </div>
+      <div class="settings-section">
+        <div class="settings-item">
+          <div class="settings-item__label">
+            <strong>主题模式</strong>
+            <span>选择喜欢的明暗风格</span>
+          </div>
+          <div class="theme-mode-group" role="group" aria-label="主题模式">
+            <button type="button" class="theme-mode-button" data-theme-value="light" aria-pressed="false">浅色</button>
+            <button type="button" class="theme-mode-button" data-theme-value="dark" aria-pressed="false">深色</button>
+            <button type="button" class="theme-mode-button" data-theme-value="system" aria-pressed="false">跟随系统</button>
+          </div>
+        </div>
+        <span class="settings-hint" id="theme-state">当前：浅色模式</span>
+      </div>
+      <div class="settings-section">
+        <div class="settings-item">
+          <div class="settings-item__label">
+            <strong>图标包裹宽度</strong>
+            <span>自定义导航图标的宽度</span>
+          </div>
+          <div class="range-control">
+            <input type="range" id="icon-width-control" min="32" max="96" step="1" value="48" aria-describedby="icon-width-value" />
+            <output id="icon-width-value" for="icon-width-control">48 px</output>
+          </div>
+        </div>
+        <div class="settings-item">
+          <div class="settings-item__label">
+            <strong>图标包裹高度</strong>
+            <span>自定义导航图标的高度</span>
+          </div>
+          <div class="range-control">
+            <input type="range" id="icon-height-control" min="32" max="96" step="1" value="48" aria-describedby="icon-height-value" />
+            <output id="icon-height-value" for="icon-height-control">48 px</output>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="header">
     <div class="container">
       <nav class="header-menu">
@@ -280,17 +95,20 @@
   <div id="content-wrapper">
     <div class="container">
 
-      <section class="sousuo" style="padding-bottom: 40px;">
+      <section class="sousuo">
         <div class="search">
           <div class="search-box">
-            <img class="search-icon" src="">
-            <input type="text" id="txt" class="search-input" placeholder="点击切换搜索引擎">
-            <button class="search-btn" id="search-btn"><img
-                src="images/sou0.png"></button>
+            <button class="search-engine-toggle" id="search-engine-toggle" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="search-engine">
+              <img class="search-icon" src="" alt="">
+              <span class="sr-only">切换搜索引擎</span>
+            </button>
+            <input type="text" id="txt" class="search-input" placeholder="选择搜索引擎后输入关键字" autocomplete="off">
+            <button class="search-btn" id="search-btn" type="button" aria-label="执行搜索">
+              <img src="images/sou0.png" alt="搜索">
+            </button>
           </div>
-          <!-- 搜索引擎 -->
-          <div class="search-engine" style="display: none;">
-            <ul class="search-engine-list"></ul>
+          <div class="search-engine" id="search-engine" role="listbox" aria-label="搜索引擎列表">
+            <ul class="search-engine-list" id="search-engine-list"></ul>
           </div>
         </div>
       </section>
@@ -391,47 +209,7 @@
     </div>
   </div>
 
-
-  <script>
-    (function () {
-      var toggleButton = document.getElementById('theme-toggle');
-      if (!toggleButton) {
-        return;
-      }
-
-      var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      var savedTheme = null;
-
-      try {
-        savedTheme = localStorage.getItem('theme');
-      } catch (error) {
-        savedTheme = null;
-      }
-
-      var shouldEnableDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
-      if (shouldEnableDark) {
-        document.body.classList.add('dark-mode');
-      }
-
-      function updateButtonLabel(isDark) {
-        toggleButton.setAttribute('aria-pressed', isDark);
-        toggleButton.innerHTML = (isDark ? '☀️ 日间模式' : '🌙 夜间模式');
-      }
-
-      updateButtonLabel(document.body.classList.contains('dark-mode'));
-
-      toggleButton.addEventListener('click', function () {
-        var isDark = document.body.classList.toggle('dark-mode');
-        updateButtonLabel(isDark);
-        try {
-          localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        } catch (error) {
-          /* 忽略无法写入 localStorage 的情况 */
-        }
-      });
-    })();
-  </script>
-
-  <script src="js/nav.ops-coffee.min.js"></script>
+  <script src="js/theme-settings.js" defer></script>
+  <script src="js/site.js" defer></script>
 </body>
 </html>
