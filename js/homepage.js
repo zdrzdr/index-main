@@ -3,6 +3,7 @@
 
   var doc = document;
   var root = doc.documentElement;
+  var body = doc.body;
   var settingsContainer = doc.getElementById('settings-container');
   var settingsToggle = doc.getElementById('settings-toggle');
   var settingsMenu = doc.getElementById('settings-menu');
@@ -33,37 +34,37 @@
   }
 
   function loadSettings() {
-    var storedSettings = Object.assign({}, defaultSettings);
+    var stored = Object.assign({}, defaultSettings);
     try {
       var saved = localStorage.getItem(SETTINGS_KEY);
       if (saved) {
         var parsed = JSON.parse(saved);
         if (parsed && typeof parsed === 'object') {
-          if (parsed.theme === 'dark' || parsed.theme === 'light') {
-            storedSettings.theme = parsed.theme;
+          if (parsed.theme === 'light' || parsed.theme === 'dark') {
+            stored.theme = parsed.theme;
           }
           if (Number.isFinite(parsed.iconWidth)) {
-            storedSettings.iconWidth = parsed.iconWidth;
+            stored.iconWidth = parsed.iconWidth;
           }
           if (Number.isFinite(parsed.iconHeight)) {
-            storedSettings.iconHeight = parsed.iconHeight;
+            stored.iconHeight = parsed.iconHeight;
           }
         }
       }
     } catch (error) {
-      // 忽略读取失败
+      // ignore parse failure
     }
-    if (storedSettings.theme === null) {
+    if (stored.theme === null) {
       try {
         var legacyTheme = localStorage.getItem('theme');
-        if (legacyTheme === 'dark' || legacyTheme === 'light') {
-          storedSettings.theme = legacyTheme;
+        if (legacyTheme === 'light' || legacyTheme === 'dark') {
+          stored.theme = legacyTheme;
         }
       } catch (error) {
-        // 忽略旧字段读取失败
+        // ignore legacy read failure
       }
     }
-    return storedSettings;
+    return stored;
   }
 
   var settings = loadSettings();
@@ -80,7 +81,7 @@
       );
       localStorage.removeItem('theme');
     } catch (error) {
-      // 忽略写入失败
+      // ignore write failure
     }
   }
 
@@ -95,7 +96,7 @@
 
   function applyTheme(theme) {
     var isDark = theme === 'dark';
-    document.body.classList.toggle('dark-mode', isDark);
+    body.classList.toggle('dark-mode', isDark);
     if (themeToggle) {
       themeToggle.checked = isDark;
     }
@@ -130,7 +131,7 @@
   var heightMin = heightInput ? Number(heightInput.min) || 48 : 48;
   var heightMax = heightInput ? Number(heightInput.max) || 120 : 120;
 
-  function updateIconDimension(key, value, min, max, shouldPersist) {
+  function setIconDimension(key, value, min, max, shouldPersist) {
     var clamped = clamp(value, min, max);
     settings[key] = clamped;
     var cssVariable = key === 'iconWidth' ? '--nav-img-width' : '--nav-img-height';
@@ -146,26 +147,26 @@
     }
   }
 
-  updateIconDimension('iconWidth', settings.iconWidth, widthMin, widthMax, false);
-  updateIconDimension('iconHeight', settings.iconHeight, heightMin, heightMax, false);
+  setIconDimension('iconWidth', settings.iconWidth, widthMin, widthMax, false);
+  setIconDimension('iconHeight', settings.iconHeight, heightMin, heightMax, false);
 
   if (widthInput) {
     widthInput.value = clamp(settings.iconWidth, widthMin, widthMax);
     widthInput.addEventListener('input', function () {
-      updateIconDimension('iconWidth', widthInput.value, widthMin, widthMax, false);
+      setIconDimension('iconWidth', widthInput.value, widthMin, widthMax, false);
     });
     widthInput.addEventListener('change', function () {
-      updateIconDimension('iconWidth', widthInput.value, widthMin, widthMax, true);
+      setIconDimension('iconWidth', widthInput.value, widthMin, widthMax, true);
     });
   }
 
   if (heightInput) {
     heightInput.value = clamp(settings.iconHeight, heightMin, heightMax);
     heightInput.addEventListener('input', function () {
-      updateIconDimension('iconHeight', heightInput.value, heightMin, heightMax, false);
+      setIconDimension('iconHeight', heightInput.value, heightMin, heightMax, false);
     });
     heightInput.addEventListener('change', function () {
-      updateIconDimension('iconHeight', heightInput.value, heightMin, heightMax, true);
+      setIconDimension('iconHeight', heightInput.value, heightMin, heightMax, true);
     });
   }
 
@@ -175,47 +176,28 @@
     }
     closeSearchMenu();
     settingsMenu.removeAttribute('hidden');
-    requestAnimationFrame(function () {
-      settingsMenu.classList.add('is-visible');
-      settingsContainer.classList.add('is-open');
-    });
+    settingsContainer.classList.add('is-open');
     if (settingsToggle) {
       settingsToggle.setAttribute('aria-expanded', 'true');
     }
   }
 
   function closeSettingsMenu() {
-    if (!settingsMenu || settingsMenu.hasAttribute('hidden')) {
-      if (settingsToggle) {
-        settingsToggle.setAttribute('aria-expanded', 'false');
-      }
-      settingsContainer.classList.remove('is-open');
+    if (!settingsMenu) {
       return;
     }
-    settingsMenu.classList.remove('is-visible');
+    if (!settingsMenu.hasAttribute('hidden')) {
+      settingsMenu.setAttribute('hidden', '');
+    }
     settingsContainer.classList.remove('is-open');
     if (settingsToggle) {
       settingsToggle.setAttribute('aria-expanded', 'false');
     }
-
-    var hideMenu = function () {
-      if (!settingsMenu.classList.contains('is-visible')) {
-        settingsMenu.setAttribute('hidden', '');
-      }
-    };
-
-    settingsMenu.addEventListener('transitionend', function handleTransition(event) {
-      if (event.target === settingsMenu) {
-        hideMenu();
-        settingsMenu.removeEventListener('transitionend', handleTransition);
-      }
-    });
-
-    window.setTimeout(hideMenu, 260);
   }
 
   if (settingsToggle && settingsMenu) {
-    settingsToggle.addEventListener('click', function () {
+    settingsToggle.addEventListener('click', function (event) {
+      event.stopPropagation();
       if (settingsMenu.hasAttribute('hidden')) {
         openSettingsMenu();
       } else {
@@ -223,38 +205,6 @@
       }
     });
   }
-
-  var activePointerDownTarget = null;
-  doc.addEventListener('pointerdown', function (event) {
-    activePointerDownTarget = event.target;
-  });
-
-  doc.addEventListener('pointerup', function (event) {
-    var target = activePointerDownTarget || event.target;
-    activePointerDownTarget = null;
-    if (settingsMenu && !settingsMenu.hasAttribute('hidden')) {
-      if (
-        settingsContainer.contains(target) === false
-      ) {
-        closeSettingsMenu();
-      }
-    }
-    if (searchMenu && !searchMenu.hasAttribute('hidden')) {
-      if (
-        searchMenu.contains(target) === false &&
-        (!searchToggle || searchToggle.contains(target) === false)
-      ) {
-        closeSearchMenu();
-      }
-    }
-  });
-
-  doc.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape') {
-      closeSettingsMenu();
-      closeSearchMenu();
-    }
-  });
 
   var defaultSearchData = {
     thisSearch: 'https://www.baidu.com/s?wd=',
@@ -293,7 +243,12 @@
           if (Array.isArray(parsed.data) && parsed.data.length) {
             data.data = parsed.data
               .filter(function (item) {
-                return item && typeof item.url === 'string' && typeof item.img === 'string' && typeof item.name === 'string';
+                return (
+                  item &&
+                  typeof item.name === 'string' &&
+                  typeof item.url === 'string' &&
+                  typeof item.img === 'string'
+                );
               })
               .map(function (item) {
                 return { name: item.name, url: item.url, img: item.img };
@@ -305,7 +260,7 @@
         }
       }
     } catch (error) {
-      // 忽略读取失败
+      // ignore read failure
     }
     return data;
   }
@@ -322,7 +277,7 @@
     try {
       localStorage.setItem(SEARCH_KEY, JSON.stringify(searchData));
     } catch (error) {
-      // 忽略写入失败
+      // ignore write failure
     }
   }
 
@@ -351,14 +306,13 @@
       }
     }
 
-    if (searchIcon) {
-      var current = searchData.data[activeIndex] || searchData.data[0];
+    var current = searchData.data[activeIndex] || searchData.data[0];
+    if (searchIcon && current) {
       searchIcon.src = searchData.thisSearchIcon || current.img;
-      searchIcon.alt = current ? current.name + ' 图标' : '搜索引擎图标';
+      searchIcon.alt = current.name + ' 图标';
     }
-    if (searchToggle) {
-      var labelName = (searchData.data[activeIndex] && searchData.data[activeIndex].name) || '搜索引擎';
-      searchToggle.setAttribute('aria-label', '当前搜索引擎：' + labelName + '，点击切换');
+    if (searchToggle && current) {
+      searchToggle.setAttribute('aria-label', '当前搜索引擎：' + current.name + '，点击切换');
     }
   }
 
@@ -413,9 +367,6 @@
     }
     closeSettingsMenu();
     searchMenu.removeAttribute('hidden');
-    requestAnimationFrame(function () {
-      searchMenu.classList.add('is-open');
-    });
     if (searchToggle) {
       searchToggle.setAttribute('aria-expanded', 'true');
     }
@@ -423,33 +374,22 @@
   }
 
   function closeSearchMenu() {
-    if (!searchMenu || searchMenu.hasAttribute('hidden')) {
-      if (searchToggle) {
-        searchToggle.setAttribute('aria-expanded', 'false');
-      }
+    if (!searchMenu) {
       return;
     }
-    searchMenu.classList.remove('is-open');
+    if (!searchMenu.hasAttribute('hidden')) {
+      searchMenu.setAttribute('hidden', '');
+    }
     if (searchToggle) {
       searchToggle.setAttribute('aria-expanded', 'false');
     }
-    searchMenu.addEventListener('transitionend', function handleTransition(event) {
-      if (event.target === searchMenu) {
-        searchMenu.setAttribute('hidden', '');
-        searchMenu.removeEventListener('transitionend', handleTransition);
-      }
-    });
-    window.setTimeout(function () {
-      if (!searchMenu.classList.contains('is-open')) {
-        searchMenu.setAttribute('hidden', '');
-      }
-    }, 240);
   }
 
   renderSearchOptions();
 
   if (searchToggle && searchMenu) {
-    searchToggle.addEventListener('click', function () {
+    searchToggle.addEventListener('click', function (event) {
+      event.stopPropagation();
       if (searchMenu.hasAttribute('hidden')) {
         openSearchMenu();
       } else {
@@ -546,4 +486,26 @@
       performSearch();
     });
   }
+
+  doc.addEventListener('click', function (event) {
+    var target = event.target;
+    if (settingsMenu && !settingsMenu.hasAttribute('hidden')) {
+      if (!settingsContainer.contains(target)) {
+        closeSettingsMenu();
+      }
+    }
+    if (searchMenu && !searchMenu.hasAttribute('hidden')) {
+      var isToggle = searchToggle && searchToggle.contains(target);
+      if (!isToggle && !searchMenu.contains(target)) {
+        closeSearchMenu();
+      }
+    }
+  });
+
+  doc.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+      closeSettingsMenu();
+      closeSearchMenu();
+    }
+  });
 })();
